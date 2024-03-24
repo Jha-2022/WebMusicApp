@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/9d4ee9a1e2.js" crossorigin="anonymous"></script>    
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+
+        <nav>
+            <div class="circle">
+                <img src="img/chevron-left.svg">
+            </div>
+            <div class="circle">
+                <img src="img/icons8-menu-bar.svg">
+            </div>
+        </nav>
+
+        <img src="img/believer.jpeg" class="song-img">
+        <h1>Believer</h1>
+        <p>Imagine Dragon</p>      
+
+        <audio id="song">
+            <source src="song/Believer(PagalWorld).mp3" type="audio/mpeg">
+        </audio>
+
+        <input type="range" value="0" id="progress">
+        
+        <div class="controls" id="ctrlIcon">
+            
+            <div class="backword"><img src="img/rewind-fill.svg"></div>
+            <div class="play" onclick="playPause()"><img src="img/play-fill.svg"></div>
+            <div class="forword"><img src="img/fast-forward-fill.svg"></div>
+
+        </div>
+
+
+        </div>
+    </div>
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+
+        song.onloademetadata = function(){
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        }
+
+        function playPause(){
+            if (ctrlIcon.classList.contains("bi-pause-fill")){
+                song.pause();
+                ctrlIcon.classList.remove("bi-pause-fill");
+                ctrlIcon.classList.add("bi-play-fill");
+
+            } 
+
+            else{
+                song.play();
+                ctrlIcon.classList.add("bi-pause-fill");
+                ctrlIcon.classList.remove("bi-play-fill");
+
+            }
+
+       
+        }
+
+        if(song.play()){
+            setInterval(()=>{
+                progress.value = song.currentTime;
+            },500);
+
+        progress.onchange = function(){
+            song.play();
+            song.currentTime = progress.value;
+            ctrlIcon.classList.add("bi-pause-fill");
+            ctrlIcon.classList.remove("bi-play-fill")
+        }
+
+        }
+
+
+    </script>
+</body>
+</html>
